@@ -16,7 +16,7 @@ async function connectToBase() {
             const databaseUri = 'mongodb+srv://macs1756:test12345@cluster1.jidxccl.mongodb.net/blog?retryWrites=true&w=majority';
 
             await mongoose.connect(databaseUri);
-                  //mongoose.connect('mongodb://username:password@host:port/database?options...');
+      
             startServer();
             
       } catch (error) {
