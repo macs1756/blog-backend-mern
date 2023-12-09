@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import auth from './routes/auth.js'
 
 const app = express()
 dotenv.config()
@@ -18,10 +19,11 @@ app.use(express.json())
 
 function startServer() {
 
-      app.get('/', (req, res) =>{
-            res.json({mes: "is working"})
-      })
 
+      //Rotes
+      app.use('/api/auth', auth)
+
+      
       app.listen( PORT , ()=>{
             console.log('server working ...')
       })
