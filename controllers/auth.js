@@ -10,6 +10,12 @@ export const register = async (req,res) => {
 
       const isUsed = await User.findOne({username})
 
+      if(username.length === 0 || password.lenght === 0){
+        return res.status(404).json({
+          messange: 'Password or Username missing',
+        })
+      }
+
       if(isUsed){
         return res.status(402).json({
           messange: 'Person with this username is used',
@@ -17,21 +23,24 @@ export const register = async (req,res) => {
       }
 
       const salt = bcrypt.genSaltSync(10)
-      const hash = bcrypt.hashSync(password, sait)
+      const hash = bcrypt.hashSync(password, salt)
 
       const newUser = new User({
-        username,
+        username: username,
         password: hash
       })
 
       await newUser.save()
 
       res.status(200).json({
+          newUser,
           messange: 'Person created'
       })
 
     } catch (error) {
-        console.log(error)
+        res.status(400).json({
+          messange: 'Person uncreated'
+        })
     }
 
 }
