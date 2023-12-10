@@ -89,7 +89,26 @@ export const login = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
 
-  } catch (error) {
+    const user = await User.findById(req.userId)
 
+    if(!user){
+      return res.json({
+        messange: 'User is not defined'
+      })
+    }
+
+    const token = jwt.sign({
+      id: user._id,
+    }, 
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: '30d' })
+
+    return res.json({user,token})
+
+
+  } catch (error) {
+      res.json({
+        messange: '403 Forbidden'
+      })
   }
 }

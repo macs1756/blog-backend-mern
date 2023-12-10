@@ -6,13 +6,19 @@ export const checkAuth = (req, res, next) => {
 
     if(token){
       try {
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
         
+        req.userId = decoded.id
+        
+        next()
+
       } catch (error) {
 
         return res.json({
           messange: '403 Forbidden'
         })
-        
+
       }
     }else{
 
