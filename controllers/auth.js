@@ -68,14 +68,14 @@ export const login = async (req, res) => {
       })
     }
 
-    const token = jwt.sing({
+    const token = jwt.sign({
       id: user._id,
     }, 
     process.env.JWT_SECRET_KEY,
     { expiresIn: '30d' })
 
     res.json({
-      token,user, messange: 'Login is successful'
+      token,user, messange: "Login is successful"
     })
 
   } catch (error) {
