@@ -49,8 +49,29 @@ export const register = async (req,res) => {
 export const login = async (req,res) => {
   try {
     
+    const { username, password } = req.body
+
+    const user = await User.findOne({ username })
+
+    if(!user){
+      res.status(404).json({
+        messange: 'User is undefined'
+      })
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password,user.password)
+
+    if(!isPasswordCorrect){
+      return res.json({
+        messange: "Password is not correct"
+      })
+    }
+
+
   } catch (error) {
-    
+    res.status(400).json({
+      messange: 'Error on server'
+    })
   }
 }
 
