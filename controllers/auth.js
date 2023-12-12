@@ -18,7 +18,7 @@ export const register = async (req, res) => {
     }
 
     if (isUsed) {
-      return res.status(402).json({
+      return res.json({
         messange: 'Person with this username is used',
       })
     }
@@ -33,8 +33,14 @@ export const register = async (req, res) => {
 
     await newUser.save()
 
+    const token = jwt.sign({
+      id: newUser._id,
+    },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '30d' })
+
     res.status(200).json({
-      newUser,
+      newUser, token,
       messange: 'Person created'
     })
 
@@ -55,7 +61,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username })
 
     if (!user) {
-      res.status(404).json({
+      return res.json({
         messange: 'User is undefined'
       })
     }
@@ -70,12 +76,12 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({
       id: user._id,
-    }, 
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: '30d' })
+    },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '30d' })
 
     res.json({
-      token,user, messange: "Login is successful"
+      token, user, messange: "Login is successful"
     })
 
   } catch (error) {
@@ -91,7 +97,7 @@ export const getMe = async (req, res) => {
 
     const user = await User.findById(req.userId)
 
-    if(!user){
+    if (!user) {
       return res.json({
         messange: 'User is not defined'
       })
@@ -99,16 +105,16 @@ export const getMe = async (req, res) => {
 
     const token = jwt.sign({
       id: user._id,
-    }, 
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: '30d' })
+    },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '30d' })
 
-    return res.json({user,token})
+    return res.json({ user, token })
 
 
   } catch (error) {
-      res.json({
-        messange: '403 Forbidden'
-      })
+    res.json({
+      messange: '403 Forbidden'
+    })
   }
 }
