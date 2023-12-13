@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import auth from './routes/auth.js'
+import postRoutes from './routes/postRoutes.js'
 
 const app = express()
 dotenv.config()
@@ -22,6 +23,7 @@ function startServer() {
 
       //Rotes
       app.use('/api/auth', auth)
+      app.use('/api/post', postRoutes)
 
       
       app.listen( PORT , ()=>{
