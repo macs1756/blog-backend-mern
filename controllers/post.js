@@ -39,11 +39,25 @@ export const createPost = async (req, res) => {
 
     }
 
-    const newPostWothOutImage = new Post({
-      
+
+
+    const newPostWithOutImage = new Post({
+        username: user.username,
+        description,
+        image: '',
+        autor: req.userId
     })
     
 
+    await newPostWithOutImage.save()
+
+    await User.findByIdAndUpdate(req.userId, {
+        $push: {
+          posts: newPostWithOutImage
+        }
+      })
+
+    res.json({ messange: newPostWithOutImage })
 
   } catch (error) {
     res.json({
