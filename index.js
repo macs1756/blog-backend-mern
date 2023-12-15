@@ -23,7 +23,7 @@ function startServer() {
 
       //Rotes
       app.use('/api/auth', auth)
-      app.use('/api/post', postRoutes)
+      app.use('/api/posts', postRoutes)
 
       
       app.listen( PORT , ()=>{
