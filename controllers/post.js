@@ -70,3 +70,23 @@ export const createPost = async (req, res) => {
 }
 
 
+export const getPosts = async (req, res) => {
+
+  try {
+    
+    const posts = await Post.find().sort('-createdAt')
+    const popularPosts = await Post.find().limit(5).sort('-views')
+
+    if(!posts){
+      res.json({messange: 'Missing the posts'})
+    }else{
+      res.json({ posts, popularPosts })
+    }
+
+  } catch (error) {
+    res.json({messange: error})
+  }
+  
+
+}
+
