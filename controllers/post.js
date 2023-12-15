@@ -40,7 +40,6 @@ export const createPost = async (req, res) => {
     }
 
 
-
     const newPostWithOutImage = new Post({
         username: user.username,
         description,
