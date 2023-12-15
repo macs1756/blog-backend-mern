@@ -37,8 +37,7 @@ export const createPost = async (req, res) => {
 
       res.json({ messange: newPostWithImage })
 
-    }
-
+    }else{
 
     const newPostWithOutImage = new Post({
         username: user.username,
@@ -57,6 +56,8 @@ export const createPost = async (req, res) => {
       })
 
     res.json({ messange: newPostWithOutImage })
+
+    }
 
   } catch (error) {
     res.json({
