@@ -41,8 +41,9 @@ export const createPost = async (req, res) => {
 
     const newPostWithOutImage = new Post({
         username: user.username,
+        title,
         description,
-        image: '',
+        image: 'missing',
         autor: req.userId
     })
     
@@ -61,7 +62,7 @@ export const createPost = async (req, res) => {
 
   } catch (error) {
     res.json({
-      messange: 'Error on server'
+      messange: error
     })
   }
 
