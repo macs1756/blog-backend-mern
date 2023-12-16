@@ -91,15 +91,16 @@ export const getPosts = async (req, res) => {
 }
 
 
+
 export const getPostById = async (req, res) => {
 
   try {
     
-    const post = await Post.findOneAndUpdate(req.params.id, {
+    const post = await Post.findByIdAndUpdate(req.params.id, {
         $inc: { view: 1 },
     })
 
-
+ 
     if(!post){
       res.json({messange: 'Missing the post'})
     }else{
@@ -109,6 +110,5 @@ export const getPostById = async (req, res) => {
   } catch (error) {
     res.json({messange: error})
   }
-  
 
 }
