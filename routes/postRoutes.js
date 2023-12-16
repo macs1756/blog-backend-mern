@@ -13,5 +13,4 @@ router.get('/get', getPosts)
 //get post by id 
 router.get('/:id', getPostById)
 
-
 export default router

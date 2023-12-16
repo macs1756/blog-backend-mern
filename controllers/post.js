@@ -93,11 +93,9 @@ export const getPosts = async (req, res) => {
 
 export const getPostById = async (req, res) => {
 
-  const { id } = req.body
-
   try {
     
-    const post = await Post.findOneAndUpdate(id, {
+    const post = await Post.findOneAndUpdate(req.params.id, {
         $inc: { view: 1 },
     })
 
