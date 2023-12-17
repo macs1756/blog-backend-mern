@@ -112,3 +112,25 @@ export const getPostById = async (req, res) => {
   }
 
 }
+
+
+export const getMyPosts = async (req, res) => {
+
+  try {
+    
+    const user = await User.findById(req.userId)
+    const list = await Promise.all(user.posts.map(e => {
+        return Post.findById(post._id)
+    }))
+ 
+    if(!post){
+      res.json({messange: 'Missing the post'})
+    }else{
+      res.json({ list })
+    }
+
+  } catch (error) {
+    res.json({messange: error})
+  }
+
+}
