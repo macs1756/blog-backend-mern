@@ -14,6 +14,6 @@ router.get('/get', getPosts)
 router.get('/:id', getPostById)
 
 //get my posts
-router.get('/user/me', getMyPosts)
+router.get('/user/me', checkAuth, getMyPosts)
 
 export default router
