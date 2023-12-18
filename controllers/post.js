@@ -175,7 +175,7 @@ export const updatePost = async (req, res) => {
 
     await post.save()
 
-    if(!post){
+    if(!post){  
       res.json({ messange: 'Error on server' })
     }else{
       res.json({ post })
