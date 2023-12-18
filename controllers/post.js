@@ -90,8 +90,6 @@ export const getPosts = async (req, res) => {
 
 }
 
-
-
 export const getPostById = async (req, res) => {
 
   try {
@@ -153,4 +151,38 @@ export const removePost = async (req, res) => {
   } catch (error) {
     res.json({ error })
   }
+}
+
+
+export const updatePost = async (req, res) => {
+
+  try {
+    
+    const { title, description, id } = req.body
+
+    const post = await Post.findById(id)
+
+    if (req.files) {
+
+      let fileName = Date.now().toString() + req.files.image.name
+      const __dirname = dirname(fileURLToPath(import.meta.url))
+      req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName))
+      post.image = fileName || ''
+    }
+
+    post.title = title
+    post.description = description
+
+    await post.save()
+
+    if(!post){
+      res.json({ messange: 'Error on server' })
+    }else{
+      res.json({ post })
+    }
+
+  } catch (error) {
+    res.json({messange: error})
+  }
+
 }
