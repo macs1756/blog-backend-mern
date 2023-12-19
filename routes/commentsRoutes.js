@@ -6,3 +6,7 @@ const router = new Router()
 
 ///Create comment /comments/:id
 router.post('/:id', checkAuth, createComments)
+
+
+
+export default router

@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import auth from './routes/auth.js'
 import postRoutes from './routes/postRoutes.js'
+import postComments from './routes/commentsRoutes.js'
 import fileUpload from 'express-fileupload'
 
 const app = express()
@@ -27,6 +28,7 @@ function startServer() {
       //Rotes
       app.use('/api/auth', auth)
       app.use('/api/posts', postRoutes)
+      app.use('/api/comments', postComments)
 
       
       app.listen( PORT , ()=>{
