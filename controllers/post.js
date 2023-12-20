@@ -112,6 +112,24 @@ export const getPostById = async (req, res) => {
 }
 
 
+export const getCommentsPosts = async (req, res) => {
+
+  try {
+    
+ 
+    if(true){
+      res.json({messange: 'Missing the post'})
+    }else{
+      res.json({ posts: 'test' })
+    }
+
+  } catch (error) {
+    res.json({ error })
+  }
+}
+
+
+
 export const getMyPosts = async (req, res) => {
 
   try {
