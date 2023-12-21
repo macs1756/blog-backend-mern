@@ -1,6 +1,7 @@
 //controller .
 import Post from '../models/Post.js'
 import User from '../models/User.js'
+import Comment from '../models/Comment.js'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -123,10 +124,8 @@ export const getCommentsPosts = async (req, res) => {
           return Comment.findById(com)
       }))
  
-  
-
-    if(!post){
-      res.json({messange: req?.id})
+    if(!comments){
+      res.json({messange: 'Comments is not found'})
     }else{
       res.json({ comments })
     }
