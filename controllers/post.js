@@ -116,17 +116,19 @@ export const getCommentsPosts = async (req, res) => {
 
   try {
     
-    const post = await Post.findById(req?.id)
+    const post = await Post.findById(req?.params?.id)
 
     const comments = await Promise.all(
-      post.comments((com)=>{
+      post.comments.map((com)=>{
           return Comment.findById(com)
       }))
  
-    if(!comments){
-      res.json({messange: 'Missing the comments'})
+  
+
+    if(!post){
+      res.json({messange: req?.id})
     }else{
-      res.json({ posts: comments })
+      res.json({ comments })
     }
 
   } catch (error) {
